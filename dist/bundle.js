@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://template/./src/index.js?");
+eval("// SINGLE TREE NODE\nfunction NewNode(d) {\n  let left = null;\n  let right = null;\n  return {\n    data: d,\n    left,\n    right\n  };\n}\n\n// BINARY TREE\nfunction Tree(array) {\n  // filter and sorted array\n  const sortedArray = [...new Set(array)].sort((a, b) => a - b);\n  const root = buildTree(sortedArray, 0, sortedArray.length - 1);\n  return root;\n}\n\n// BUILDING A BINARY TREE USING A GIVEN ARRAY, FUNCTION RETURNS ROOT NODE\nfunction buildTree(array, start, end) {\n  // base case\n  if (start > end) return null;\n  //   setting root as middle element of array\n  let mid = Math.round((start + end) / 2);\n  let node = NewNode(array[mid]);\n\n  //   making left and right subtrees\n  node.left = buildTree(array, start, mid - 1);\n  node.right = buildTree(array, mid + 1, end);\n  return node;\n}\nconst prettyPrint = function (node) {\n  let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : \"\";\n  let isLeft = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;\n  if (node === null) {\n    return;\n  }\n  if (node.right !== null) {\n    prettyPrint(node.right, `${prefix}${isLeft ? \"│   \" : \"    \"}`, false);\n  }\n  console.log(`${prefix}${isLeft ? \"└── \" : \"┌── \"}${node.data}`);\n  if (node.left !== null) {\n    prettyPrint(node.left, `${prefix}${isLeft ? \"    \" : \"│   \"}`, true);\n  }\n};\n\n//# sourceURL=webpack://template/./src/index.js?");
 
 /***/ })
 
