@@ -1,7 +1,7 @@
 // SINGLE TREE NODE
 function NewNode(d) {
-  const left = null;
-  const right = null;
+  let left = null;
+  let right = null;
 
   return {
     data: d,
@@ -16,7 +16,21 @@ function Tree(array) {
   const sortedArray = [...new Set(array)].sort((a, b) => a - b);
 
   const root = buildTree(sortedArray, 0, sortedArray.length - 1);
-  return root;
+  return {
+    root,
+    insertNode(value, root = this.root) {
+      if (root === null) {
+        root = NewNode(value);
+        return root;
+      }
+      if (value < root.data) {
+        root.left = this.insertNode(value, root.left);
+      } else if (value > root.data) {
+        root.right = this.insertNode(value, root.right);
+      }
+      return root;
+    },
+  };
 }
 
 // BUILDING A BINARY TREE USING A GIVEN ARRAY, FUNCTION RETURNS ROOT NODE
@@ -47,4 +61,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(Tree([8, 5, 9, 24, 16, 3]));
+const tree1 = Tree([14, 21, 5, 11, 9, 6, 1, 4]);
+
+// console.log(tree1);
+// tree1.insertNode(3);
+// console.log(tree1);
