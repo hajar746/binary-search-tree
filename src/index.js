@@ -1,7 +1,7 @@
 // SINGLE TREE NODE
 function NewNode(d) {
-  let left = null;
-  let right = null;
+  const left = null;
+  const right = null;
 
   return {
     data: d,
@@ -24,8 +24,8 @@ function buildTree(array, start, end) {
   // base case
   if (start > end) return null;
   //   setting root as middle element of array
-  let mid = Math.round((start + end) / 2);
-  let node = NewNode(array[mid]);
+  const mid = Math.floor((start + end) / 2);
+  const node = NewNode(array[mid]);
 
   //   making left and right subtrees
   node.left = buildTree(array, start, mid - 1);
@@ -46,3 +46,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
+
+prettyPrint(Tree([8, 5, 9, 24, 16, 3]));
