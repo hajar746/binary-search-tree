@@ -75,6 +75,14 @@ function Tree(array) {
 
       return root;
     },
+    findNode(value, root = this.root) {
+      if (root === null || root.data === value) return root;
+      if (value < root.data) {
+        return this.findNode(value, root.left);
+      } else if (value > root.data) {
+        return this.findNode(value, root.right);
+      }
+    },
   };
 }
 
@@ -110,4 +118,7 @@ const tree1 = Tree([14, 21, 5, 11, 9, 6, 1, 4]);
 
 // tree1.insertNode(3);
 // tree1.deleteNode(6);
-console.log(tree1);
+// console.log(tree1.deleteNode(14));
+// console.log(tree1.findNode(4));
+// console.log(tree1.findNode(11));
+// console.log(tree1.findNode(21));
