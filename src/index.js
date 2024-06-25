@@ -10,15 +10,16 @@ function NewNode(d) {
   };
 }
 
-// BINARY TREE
+// BINARY SEARCH TREE
 function Tree(array) {
-  // filter and sorted array
+  // filter and sort array
   const sortedArray = [...new Set(array)].sort((a, b) => a - b);
 
   const root = buildTree(sortedArray, 0, sortedArray.length - 1);
   return {
     root,
     insertNode(value, root = this.root) {
+      // base case
       if (root === null) {
         root = NewNode(value);
         return root;
@@ -83,6 +84,56 @@ function Tree(array) {
         return this.findNode(value, root.right);
       }
     },
+    levelOrder(arr = [], queue = [], root = this.root) {
+      if (root === null) return;
+
+      arr.push(root.data);
+      // psuh child nodes to queue
+      queue.push(root.left);
+      queue.push(root.right);
+      // go to next level
+      while (queue.length) {
+        const level = queue[0];
+        queue.shift();
+        this.levelOrder(arr, queue, level);
+      }
+      return arr;
+    },
+    inOrder(arr = [], root = this.root) {
+      // base case
+      if (root === null) return;
+
+      if (root.left !== null) {
+        this.inOrder(arr, root.left);
+      }
+      arr.push(root.data);
+      if (root.right !== null) {
+        this.inOrder(arr, root.right);
+      }
+      return arr;
+    },
+    preOrder(arr = [], root = this.root) {
+      if (root === null) return;
+      arr.push(root.data);
+      if (root.left) {
+        this.preOrder(arr, root.left);
+      }
+      if (root.right) {
+        this.preOrder(arr, root.right);
+      }
+      return arr;
+    },
+    postOrder(arr = [], root = this.root) {
+      if (root === null) return;
+      if (root.left) {
+        this.postOrder(arr, root.left);
+      }
+      if (root.right) {
+        this.postOrder(arr, root.right);
+      }
+      arr.push(root.data);
+      return arr;
+    },
   };
 }
 
@@ -122,3 +173,7 @@ const tree1 = Tree([14, 21, 5, 11, 9, 6, 1, 4]);
 // console.log(tree1.findNode(4));
 // console.log(tree1.findNode(11));
 // console.log(tree1.findNode(21));
+console.log(tree1.levelOrder());
+console.log(tree1.inOrder());
+console.log(tree1.preOrder());
+console.log(tree1.postOrder());
