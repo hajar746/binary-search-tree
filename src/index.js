@@ -162,6 +162,11 @@ function Tree(array) {
       }
       return true;
     },
+    rebalance(root = this.root) {
+      let arr = this.levelOrder([], [], root);
+      arr.sort((a, b) => a - b);
+      return (this.root = buildTree(arr));
+    },
   };
 }
 
@@ -193,17 +198,19 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const tree1 = Tree([14, 21, 5, 11, 9, 6, 1, 4]);
-
-// tree1.insertNode(3);
-// tree1.deleteNode(6);
-// console.log(tree1.deleteNode(14));
-// console.log(tree1.findNode(4));
-// console.log(tree1.findNode(11));
-// console.log(tree1.findNode(21));
-console.log(tree1.levelOrder());
-console.log(tree1.inOrder());
-console.log(tree1.preOrder());
-console.log(tree1.postOrder());
-console.log(tree1.depth(tree1.findNode(9)));
-console.log(tree1.isBalanced());
+let tree1 = Tree([14, 21, 5, 11, 9, 6, 1, 4]);
+tree1.isBalanced();
+tree1.levelOrder();
+tree1.preOrder();
+tree1.postOrder();
+tree1.inOrder();
+tree1.insertNode(105);
+tree1.insertNode(136);
+tree1.insertNode(200);
+tree1.isBalanced();
+tree1.rebalance();
+tree1.isBalanced();
+tree1.levelOrder();
+tree1.preOrder();
+tree1.postOrder();
+tree1.inOrder();
